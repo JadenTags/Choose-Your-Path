@@ -9,28 +9,52 @@ public class Main {
     
     public static void main(String[] args) throws InterruptedException {
         clearScreen();
-        String scream = "AAAAAAAARRRRGGGGGHHHHHHHHHHH!!!!!!";
-        for (int i = 0; i < scream.length(); i++) {
-            System.out.print(scream.substring(i, i+1));
-            // TimeUnit.MILLISECONDS.sleep(150 - (5*i));
-        }
-        log += "AAAAAAAARRRRGGGGGHHHHHHHHHHH!!!!!!";
-        TimeUnit.SECONDS.sleep(1);
+        noise("AAAAAAAARRRRGGGGGHHHHHHHHHHH!!!!!!", 150, 5);
+        waitContinue();
 
-        int ans = promptUser("...What is going on?\nShould I (1) investigate or (2) go back to sleep?", 5, "the entity esaped.");
+        int ans = promptUser("...What is going on?\nShould I (1) investigate or (2) go back to sleep?", 0, "the entity esaped.");
         if (ans == 1) {
-            ans = promptUser("You walk to your storage room and look around. You probab\nBring a weapon or a flashlight?", 5, "the entity escaped.");
-    
+            ans = promptUser("I should probably go check that out. I haven't seen anybody else in years.\nShould I bring a (1) weapon or a (2) flashlight?", 0, "the entity escaped.");
+            if (ans == 1) {
+                ans = promptUser("Having something to protect myself with is probably a good idea. I'm not sure what's even making that noise... would it be smart to go out there?\nShould I (1) step outside or (2) go back to sleep?", 0, "the entity escaped.");
+                if (ans == 1) {
+                    System.out.println("Eh, I'm big enough to defend myself.");
+
+                    noise("\n*Step*", 50, 0);
+                    noise("*Step*", 50, 0);
+                    noise("*Step*", 50, 0);
+
+                    noise("\n*Bushes Rustling*", 10, 0);
+                    waitContinue();
+
+                    ans = promptUser("Eh, I'm big enough to defend myself.\nShould I (1) investigate or (2) go back to sleep?", 15, "the entity esaped.");
+                } else if (ans == 2) {
+
+                }
+
+            } else if (ans == 2) {
+
+            }
         } else if (ans == 2) {
             
         }
     }
 
+    public static void noise(String noise, int time, int step) throws InterruptedException {
+        noise += "\n";
+
+        for (int i = 0; i < noise.length(); i++) {
+            System.out.print(noise.substring(i, i+1));
+            TimeUnit.MILLISECONDS.sleep(time - (step*i));
+        }
+
+        log += noise;
+    }
+
     public static int promptUser(String question, int seconds, String timedMessage) {
-        Date initialTime = new Date();
         Date targetTime = new Date();
+        long timeLeft = seconds * 1000;
         ArrayList<Integer> allowedAnswers = new ArrayList<Integer>();
-        ArrayList<String> textAnswers = new ArrayList<String>();
         int ans;
 
         log += "\n\n" + question;
@@ -42,14 +66,14 @@ public class Main {
             tempQuestion = tempQuestion.replace(allowedAnswer, "");
         }
 
-        targetTime.setTime(initialTime.getTime() + (seconds * 1000));
+        targetTime.setTime(new Date().getTime() + (seconds * 1000));
 
         while (true) {
             clearScreen();
             System.out.println("You can input (0) to check the log!");
 
             if (seconds != 0) {
-                System.out.println("You have " + seconds + " seconds to answer!");
+                System.out.println("You have " + Math.round(timeLeft / 1000) + " second(s) to answer!");
             }
 
             System.out.println("\n" + question);
@@ -57,6 +81,7 @@ public class Main {
             try {
                 sc = new Scanner(System.in);
                 ans = sc.nextInt();
+                timeLeft = targetTime.getTime() - new Date().getTime();
 
                 if (new Date().compareTo(targetTime) == 1 && seconds != 0) {
                     clearScreen();
@@ -66,11 +91,11 @@ public class Main {
 
                 if (allowedAnswers.indexOf(ans) == -1) {
                     if (ans == 0) {
-                        targetTime = checkLog(Math.round((targetTime.getTime() - initialTime.getTime()) / 1000));
+                        checkLog();
                         throw new Exception("LOG");
+                    } else {
+                        throw new Exception("");
                     }
-
-                    throw new Exception("");
                 }
 
                 break;
@@ -78,9 +103,8 @@ public class Main {
                 if (e.getMessage() != "LOG") {
                     System.out.println("Invalid answer! Try again!");
                 }
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e1) {}
+
+                targetTime.setTime(new Date().getTime() + timeLeft);
             }
         }
 
@@ -88,32 +112,25 @@ public class Main {
         return ans;
     }
 
-    public static Date checkLog(int secondsLeft) {
+    public static void checkLog() {
         clearScreen();
-        System.out.println(secondsLeft);
+        
         System.out.println(log);
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {}
 
-        System.out.println("\n\nPress enter to continue...");
-        sc = new Scanner(System.in);
-        sc.nextLine();
-
-        Date newDate = new Date();
-        newDate.setTime(newDate.getTime() + (secondsLeft * 1000));
-
-        return newDate;
-    }
-
-    public void time(int secs) {
-        try {
-            TimeUnit.SECONDS.sleep(secs);
-        } catch (InterruptedException e) {}
+        waitContinue();
     }
 
     public static void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     } 
+
+    public static void waitContinue() {
+        System.out.println("\nPress enter to continue...");
+        sc = new Scanner(System.in);
+        sc.nextLine();
+    }
 }
