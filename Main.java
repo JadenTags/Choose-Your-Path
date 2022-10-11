@@ -28,8 +28,34 @@ public class Main {
                     waitContinue();
 
                     ans = promptUser("Eh, I'm big enough to defend myself.\nShould I (1) investigate or (2) go back to sleep?", 15, "the entity esaped.");
-                } else if (ans == 2) {
+                    if (ans == 1) {
+                        System.out.println("Let me see what's making that noise.");
 
+                        noise("\n*Step*", 50, 0);
+                        noise("*Step*", 100, 0);
+                        noise("*ROAR*", 50, 0);
+                        waitContinue();
+
+                        ans = promptUser("A large disfigured entity jumps toward me. Should I (1) swipe at it or (2) try to stab it in the middle?", 5, "I took too long... the entity struck me a killing blow.");
+                        if (ans == 1) {
+                            System.out.println("I made a swipe at it.");
+
+                            noise("\n*Swipe*", 50, 0);
+
+                            System.out.println("The attacker evades it.");
+                        } else if (ans == 2) {
+                            System.out.println("\nI wait for an opening...");
+
+                            noise("\n*stab*\n", 200, 0);
+
+                            System.out.println("We both took a hit from each other. The entity jumps away, and I lay there dying...");
+                        }
+                    }
+                } else if (ans == 2) {
+                    System.out.println("Not sure what's out there. I'll just go back to sleep and hope it goes away.\n");
+
+                    noise("*Zzz...*", 50, 100);
+                    waitContinue();
                 }
 
             } else if (ans == 2) {
