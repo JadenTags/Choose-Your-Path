@@ -27,7 +27,7 @@ public class Main {
                     noise("\n*Bushes Rustling*", 10, 0);
                     waitContinue();
 
-                    ans = promptUser("Eh, I'm big enough to defend myself.\nShould I (1) investigate or (2) go back to sleep?", 15, "the entity esaped.");
+                    ans = promptUser("\nShould I (1) investigate or (2) go back to sleep?", 15, "the entity esaped.");
                     if (ans == 1) {
                         System.out.println("Let me see what's making that noise.");
 
@@ -36,7 +36,7 @@ public class Main {
                         noise("*ROAR*", 50, 0);
                         waitContinue();
 
-                        ans = promptUser("A large disfigured entity jumps toward me. Should I (1) swipe at it or (2) try to stab it in the middle?", 5, "I took too long... the entity struck me a killing blow.");
+                        ans = promptUser("A large disfigured entity jumps toward me. Should I (1) swipe at it or (2) try to stab it in the middle?", 10, "the entity struck me a killing blow.");
                         if (ans == 1) {
                             System.out.println("I made a swipe at it.");
 
@@ -111,7 +111,7 @@ public class Main {
 
                 if (new Date().compareTo(targetTime) == 1 && seconds != 0) {
                     clearScreen();
-                    System.out.println("You took too long... " + timedMessage);
+                    System.out.println("I took too long... " + timedMessage);
                     System.exit(1);
                 }
 
