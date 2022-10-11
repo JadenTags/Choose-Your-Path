@@ -91,7 +91,14 @@ public class Main {
 
                 if (allowedAnswers.indexOf(ans) == -1) {
                     if (ans == 0) {
-                        checkLog();
+                        clearScreen();
+                        
+                        System.out.println(log);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {}
+                
+                        waitContinue();
                         throw new Exception("LOG");
                     } else {
                         throw new Exception("");
@@ -110,17 +117,6 @@ public class Main {
 
         log += "\n" + ans;
         return ans;
-    }
-
-    public static void checkLog() {
-        clearScreen();
-        
-        System.out.println(log);
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {}
-
-        waitContinue();
     }
 
     public static void clearScreen() {  
