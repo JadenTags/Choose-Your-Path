@@ -59,6 +59,8 @@ public class Main {
                             System.out.println("Your vision starts to narrow... until everything fades to black.");
                             noise("\n\n...THE END...", 100, 0);
                         }
+                    } else if (ans == 2) {
+                        
                     }
                 } else if (ans == 2) {
                     System.out.println("Not sure what's out there. I'll just go back to sleep and hope it goes away.\n");
