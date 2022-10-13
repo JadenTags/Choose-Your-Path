@@ -27,42 +27,56 @@ public class Main {
                     noise("\n*Bushes Rustling*", 10, 0);
                     waitContinue();
 
-                    ans = promptUser("\nShould I (1) investigate or (2) go back to sleep?", 15, "the entity esaped.");
+                    ans = promptUser("\nShould I (1) investigate or (2) go back inside?", 15, "the entity esaped.");
                     if (ans == 1) {
-                        System.out.println("Let me see what's making that noise.");
+                        System.out.println("What's making that annoying noise?");
 
                         noise("\n*Step*", 50, 0);
                         noise("*Step*", 100, 0);
-                        noise("*ROAR*", 50, 0);
+                        noise("AAAAARRRRRRRRRG", 50, 0);
                         waitContinue();
 
-                        ans = promptUser("A large disfigured entity jumps toward me. Should I (1) swipe at it or (2) try to stab it in the middle?", 10, "the entity struck me a killing blow.");
+                        ans = promptUser("*The monster leaps at me*\nShould I (1) dodge or (2) try to fight back?", 10, "the entity struck you... you didn't survive.");
                         if (ans == 1) {
-                            System.out.println("I made a swipe at it.");
+                            noise("\n*WSHHH*", 50, 0);
 
-                            noise("\n*Swipe*", 50, 0);
+                            ans = promptUser("That narrowly missed me... WHAT DO I DO NOW?\nShould I (1) ", 10, "the entity attacked again and didn't hesitate to end your life.");
+                            if (ans == 1) {
 
-                            System.out.println("The attacker evades it.");
+                            }
                         } else if (ans == 2) {
-                            System.out.println("\nI wait for an opening...");
+                            System.out.println("\nI need to wait for an opening...");
 
-                            noise("\n*stab*\n", 200, 0);
+                            noise("\nARRRRGGGH\n", 200, 0);
 
-                            System.out.println("We both took a hit from each other. The entity jumps away, and I lay there dying...");
+                            System.out.println("It worked! The monster's hurt!");
+                            noise("...\n", 1000, 0);
+
+                            System.out.println("I'm bleeding.");
+                            noise("...\n", 1000, 0);
+
+                            clearScreen();
+                            System.out.println("Your vision starts to narrow... until everything fades to black.");
+                            noise("\n\n...THE END...", 100, 0);
                         }
                     }
                 } else if (ans == 2) {
                     System.out.println("Not sure what's out there. I'll just go back to sleep and hope it goes away.\n");
 
                     noise("*Zzz...*", 50, 100);
-                    waitContinue();
+
+                    clearScreen();
+                    System.out.println("You lie in your bed as the noise slowly fades away, until nothing is heard...");
+                    noise("\n\n...THE END...", 100, 0);
                 }
 
             } else if (ans == 2) {
 
             }
         } else if (ans == 2) {
-            
+            clearScreen();
+            System.out.println("You lie in your bed as the noise slowly fades away, until nothing is heard...");
+            noise("\n\n...THE END...", 100, 0);
         }
     }
 
