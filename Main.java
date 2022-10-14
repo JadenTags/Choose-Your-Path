@@ -1,12 +1,27 @@
+/*
+ * Title: Project 1.3.8 Choose Your Path
+ * 
+ * Authors: Jaden Tagulinao and Jason Leung
+ * Date: 12 October 2022
+ * Course: APCSA, Tri 1
+ * 
+ * Description: Tells a story through a series of inputs from the user. The user can choose which path to take, and the code will run based on that choice.
+ */
+
+ // imports the necessary classes used in the code
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
 import java.util.ArrayList;
 
+// class definition header
 public class Main {
+
+    // some variables waiting to be used
     public static String log = "";
     public static Scanner sc;
     
+    // main storyline
     public static void main(String[] args) throws InterruptedException 
     {
         clearScreen();
@@ -14,13 +29,15 @@ public class Main {
         waitContinue();
 
         int ans = promptUser("...What is going on?\nShould I (1) investigate or (2) go back to sleep?", 0, "the entity esaped.");
-        if (ans == 1) {
+        if (ans == 1) // nested series of if, else ifs
+        {
             ans = promptUser("I should probably go check that out. I haven't seen anybody else in years.\nShould I bring a (1) weapon or a (2) flashlight?", 0, "the entity escaped.");
             if (ans == 1) 
             {
                 ans = promptUser("Having something to protect myself with is probably a good idea. I'm not sure what's even making that noise... would it be smart to go out there?\nShould I (1) step outside or (2) go back to sleep?", 0, "the entity escaped.");
                 if (ans == 1) 
                 {
+                    // print statements scattered throughout the code
                     System.out.println("Eh, I'm big enough to defend myself.");
 
                     noise("\n*Step*", 50, 0);
@@ -76,7 +93,7 @@ public class Main {
                     } 
                     else if (ans == 2) 
                     {
-                        System.out.println("I quickly go back inside... but I got it behind and everything fades to black...");
+                        System.out.println("I quickly go back inside... but I got hit behind and everything fades to black...");
                     }
                 } 
                 else if (ans == 2) 
@@ -96,14 +113,49 @@ public class Main {
                 ans = promptUser("I grabbed my flashlight. Should I (1) look in the forest or (2) the basement?", 0, "");
                 if (ans == 1) 
                 {
+                    System.out.println("Perhaps all this ruckus comes from that forest over there. I'll check it out... ");
 
+                    noise("*step*", 50, 0);
+                    noise("*step*", 50, 0);
+                    noise("*step*", 50, 0);
+
+                    waitContinue();
+
+                    clearScreen();
+                    System.out.println("as soon as I stepped out");
+                    noise("...", 500, 0);
+                    clearScreen();
+                    System.out.print("I got bashed on my back. I dropped down, and everything started to fade...");
                 }
                 else if (ans == 2)
                 {
+                    System.out.println("Maybe it's coming from the basement? Hopefully it's nothing, but it can't hurt to check.");
+
+                    noise("*step*", 50, 0);
+                    noise("*step*", 50, 0);
+                    noise("*step*", 50, 0);
+
+                    waitContinue();
+
+                    clearScreen();
+                    noise("*creak*", 50, 0);
+                    noise("\nWhat is that?\n", 600, 500);
+                    noise("*creak*", 60, 0);
+                    noise("*creak*", 70, 0);
+                    noise("\nI'm honestly getting scared... I'll just go back\n", 500, 500);
+                    noise("*step*", 50, 0);
+                    noise("*step*", 50, 0);
+                    noise("*c r e a k*", 500, 10);
+
+                    waitContinue();
+
+                    clearScreen();
+                    System.out.println("As I reach the entrance of the basement, I heard a fizz, a crackle, and then-");
+                    noise("\n*BOOM*", 2500, 2500);  // ambiguous ending
 
                 }
             }
-        } 
+        }
         else if (ans == 2) 
         {
             clearScreen();
@@ -112,6 +164,7 @@ public class Main {
         }
     }
 
+    // method to make the sound effects, method skips InterruptedException with the keyword throw
     public static void noise(String noise, int time, int step) throws InterruptedException 
     {
         noise += "\n";
@@ -125,6 +178,7 @@ public class Main {
         log += noise;
     }
 
+    // method that asks for the user to input a number. If a time is given, they only have that window to input, else an ending comes
     public static int promptUser(String question, int seconds, String timedMessage) 
     {
         Date targetTime = new Date();
@@ -162,7 +216,7 @@ public class Main {
                 ans = sc.nextInt();
                 timeLeft = targetTime.getTime() - new Date().getTime();
 
-                if (new Date().compareTo(targetTime) == 1 && seconds != 0) 
+                if (new Date().compareTo(targetTime) == 1 && seconds != 0) // compound boolean
                 {
                     clearScreen();
                     System.out.println("I took too long... " + timedMessage);
@@ -206,12 +260,14 @@ public class Main {
         return ans;
     }
 
+    // method that clears the terminal
     public static void clearScreen() 
     {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     } 
 
+    // method that requires the user to press enter in order to continue the story
     public static void waitContinue() 
     {
         System.out.println("\nPress enter to continue...");
