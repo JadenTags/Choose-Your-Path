@@ -164,7 +164,7 @@ public class Main {
         }
     }
 
-    // method to make the sound effects, method skips InterruptedException with the keyword throw
+    //Method that slowly prints a noise
     public static void noise(String noise, int time, int step) throws InterruptedException 
     {
         noise += "\n";
@@ -178,7 +178,7 @@ public class Main {
         log += noise;
     }
 
-    // method that asks for the user to input a number. If a time is given, they only have that window to input, else an ending comes
+    //Method that prompts the user for a valid answer
     public static int promptUser(String question, int seconds, String timedMessage) 
     {
         Date targetTime = new Date();
@@ -186,8 +186,10 @@ public class Main {
         ArrayList<Integer> allowedAnswers = new ArrayList<Integer>();
         int ans;
 
+        //Adds the question to the log
         log += "\n\n" + question;
 
+        //Parses the question for the allowed answers and stores them
         String tempQuestion = question;
         while (tempQuestion.indexOf("(") != -1)
         {
@@ -196,26 +198,33 @@ public class Main {
             tempQuestion = tempQuestion.replace(allowedAnswer, "");
         }
 
+        //Sets the target time using the amount of seconds
         targetTime.setTime(new Date().getTime() + (seconds * 1000));
 
+        //Continues until valid answer is input
         while (true) 
         {
+            //Clears the screen and prints the input 0 to check log
             clearScreen();
             System.out.println("You can input (0) to check the log!");
 
+            //If the question is timed, prints the time left
             if (seconds != 0) 
             {
                 System.out.println("You have " + Math.round(timeLeft / 1000) + " second(s) to answer!");
             }
 
+            //Prints the question
             System.out.println("\n" + question);
 
             try 
             {
+                //Gets a new prompt and gets the time left
                 sc = new Scanner(System.in);
                 ans = sc.nextInt();
                 timeLeft = targetTime.getTime() - new Date().getTime();
 
+                //Checks that the target time hasn't passed and the question has a time limit
                 if (new Date().compareTo(targetTime) == 1 && seconds != 0) // compound boolean
                 {
                     clearScreen();
@@ -223,8 +232,10 @@ public class Main {
                     System.exit(1);
                 }
 
+                //Checks if the answer is an actual valid answer
                 if (allowedAnswers.indexOf(ans) == -1) 
                 {
+                    //Checks if the input is the check log input
                     if (ans == 0) 
                     {
                         clearScreen();
@@ -247,6 +258,7 @@ public class Main {
                 break;
             } catch (Exception e) 
             {
+                //Prints invalid answer and resets the target time
                 if (e.getMessage() != "LOG") 
                 {
                     System.out.println("Invalid answer! Try again!");
@@ -256,18 +268,19 @@ public class Main {
             }
         }
 
+        //Adds the answer to the log and returns the answer
         log += "\n" + ans;
         return ans;
     }
 
-    // method that clears the terminal
+    // Method that clears the terminal
     public static void clearScreen() 
     {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     } 
 
-    // method that requires the user to press enter in order to continue the story
+    // Method to wait for the users input to continue the story
     public static void waitContinue() 
     {
         System.out.println("\nPress enter to continue...");
